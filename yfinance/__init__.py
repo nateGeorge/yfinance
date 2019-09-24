@@ -548,7 +548,7 @@ def _download_one_threaded(ticker, start=None, end=None, auto_adjust=False,
 
 def _download_one(ticker, start=None, end=None, auto_adjust=False,
                   actions=False, period="max", interval="1d",
-                  prepost=False, proxy=None, rounding=True):
+                  prepost=False, proxy=None, rounding=False):
 
     return Ticker(ticker).history(period=period, interval=interval,
                                   start=start, end=end, prepost=prepost,
@@ -559,7 +559,7 @@ def _download_one(ticker, start=None, end=None, auto_adjust=False,
 def download(tickers, start=None, end=None, actions=False, threads=True,
              group_by='column', auto_adjust=False, progress=True,
              period="max", interval="1d", prepost=False, proxy=None,
-             rounding=True,
+             rounding=False,
              **kwargs):
     """Download yahoo tickers
     :Parameters:
@@ -591,7 +591,7 @@ def download(tickers, start=None, end=None, actions=False, threads=True,
         proxy: str
             Optional. Proxy server URL scheme. Default is None
         rounding: bool
-            Optional. Whether to round the retrieved values to the precision suggested by Yahoo.
+            Optional. Whether to round the retrieved values to the precision suggested by Yahoo.  This causes issues with adjusted prices, see issue #87.
     """
     global _PROGRESS_BAR, _DFS
 
