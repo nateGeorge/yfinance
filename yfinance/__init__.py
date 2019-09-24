@@ -385,13 +385,18 @@ class Ticker():
             except Exception:
                 pass
 
+
+        vol_col = "Volume"
+
         if auto_adjust:
+            vol_col = "Adj Volume"
             quotes = self._auto_adjust(quotes)
 
         if rounding:
             quotes = _np.round(quotes, data[
                 "chart"]["result"][0]["meta"]["priceHint"])
-        quotes['Volume'] = quotes['Volume'].fillna(0).astype(_np.int64)
+
+        quotes[vol_col] = quotes[vol_col].fillna(0).astype(_np.int64)
 
         quotes.dropna(inplace=True)
 
